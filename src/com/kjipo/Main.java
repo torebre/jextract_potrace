@@ -1,6 +1,8 @@
 package com.kjipo;
 
 
+import com.kjipo.potrace.potrace_bitmap_s;
+import com.kjipo.potrace.potrace_bitmap_t;
 import com.kjipo.potrace.potracelib_h;
 
 import java.lang.foreign.Arena;
@@ -27,11 +29,18 @@ public class Main {
 //        var version2 = memorySegment.reinterpret(1).getString(0);
 //        System.out.println("Version 2: " + version2);
 
-        try (final Arena arena = Arena.ofConfined()) {
-            final MemorySegment ptr = memorySegment.reinterpret(100, arena, null);
+        try (Arena arena = Arena.ofConfined()) {
+            MemorySegment ptr = memorySegment.reinterpret(100, arena, null);
             System.out.println("Version 3: " + ptr.getString(0));
         }
 
+        try(Arena arena = Arena.ofConfined()) {
+            MemorySegment bitmapStruct = potrace_bitmap_s.allocate(arena);
+
+            // TODO
+
+
+        }
 
 //        try (var arena = Arena.ofConfined()) {
 //            potracelib_h.potrace_version();
