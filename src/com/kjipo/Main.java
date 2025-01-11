@@ -34,13 +34,6 @@ public class Main {
             System.out.println("Version 3: " + ptr.getString(0));
         }
 
-        try(Arena arena = Arena.ofConfined()) {
-            MemorySegment bitmapStruct = potrace_bitmap_s.allocate(arena);
-
-            // TODO
-
-
-        }
 
 //        try (var arena = Arena.ofConfined()) {
 //            potracelib_h.potrace_version();
