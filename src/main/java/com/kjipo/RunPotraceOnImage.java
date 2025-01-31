@@ -9,15 +9,9 @@ import java.lang.foreign.MemorySegment;
 public class RunPotraceOnImage {
 
 
-
     public void runOnImage() {
-
-        try(Arena arena = Arena.ofConfined()) {
+        try (Arena arena = Arena.ofConfined()) {
             MemorySegment bitmapStruct = potrace_bitmap_s.allocate(arena);
-
-            System.out.println("Test23: " +potracelib_h.potrace_word);
-
-            System.out.println(potracelib_h.potrace_word.byteSize());
 
 //            potracelib_h.potrace_word.byteAlignment()
 
@@ -27,7 +21,6 @@ public class RunPotraceOnImage {
 
             MemorySegment bitmapData = arena.allocateFrom(potracelib_h.potrace_word, 1, 1, 1);
 //            potrace_bitmap_s.map(bitmapStruct);
-
 
 
 //            potrace_bitmap_s.dy(bitmapStruct, );
@@ -44,17 +37,19 @@ public class RunPotraceOnImage {
 
             MemorySegment result = potracelib_h.potrace_trace(bitmapData, potraceParams);
 
-            MemorySegment traceList = potrace_state_s.plist(result);
+//            MemorySegment traceList = potrace_state_s.plist(result);
+//            potrace_path_s.childlist(traceList);
+
 //            var area = potrace_path_s.area(traceList);
 //            System.out.println("Test31: " +area);
 
-
             int resultStatus = potrace_state_s.status(result);
 
-            System.out.println("Test30: " +resultStatus);
-
-
-
+            if (resultStatus == potracelib_h.POTRACE_STATUS_OK()) {
+                System.out.println("Result: OK");
+            } else {
+                System.out.println("Not OK result: " + resultStatus);
+            }
 
 
         }
@@ -67,9 +62,6 @@ public class RunPotraceOnImage {
         RunPotraceOnImage runPotraceOnImage = new RunPotraceOnImage();
         runPotraceOnImage.runOnImage();
     }
-
-
-
 
 
 }
